@@ -4,7 +4,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:talaky_app/modules/login_screen/login_screen.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
 import 'package:talaky_app/shared/network/local/cachehelper/cache_helper.dart';
-import 'package:talaky_app/shared/style/color.dart';
+
+import '../../shared/ui/resources/app_colors.dart';
 
 class BoardingModel {
   final String image;

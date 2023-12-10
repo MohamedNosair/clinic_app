@@ -6,7 +6,7 @@ import 'package:talaky_app/modules/appointment_screen/appointment_screen.dart';
 import 'package:talaky_app/modules/name_offer_screen/cubit/cubit.dart';
 import 'package:talaky_app/modules/name_offer_screen/cubit/states.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
-import 'package:talaky_app/shared/style/color.dart';
+import 'package:talaky_app/shared/ui/resources/app_colors.dart';
 import 'package:talaky_app/widgets/small_text.dart';
 
 class NameOfferScreen extends StatefulWidget {
@@ -158,7 +158,7 @@ class _NameOfferScreenState extends State<NameOfferScreen> {
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
-                        color: defaultColor,
+                        color: AppColor.mainColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: MaterialButton(
@@ -166,7 +166,9 @@ class _NameOfferScreenState extends State<NameOfferScreen> {
                         onPressed: () {
                           navigateTo(
                             context,
-                             AppointmentScreen(id: cubit.offerDetailsModel!.data.id!.toInt()),
+                             AppointmentScreen(
+                                 // id: cubit.offerDetailsModel!.data.id!.toInt(),
+                             ),
                           );
                         },
                         child:  SmallText(text: "Make Appointment",color: Colors.white,),

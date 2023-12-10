@@ -7,10 +7,11 @@ import 'package:talaky_app/data/models/offer_model.dart';
 import 'package:talaky_app/data/models/package_model.dart';
 import 'package:talaky_app/layout/cubit/states.dart';
 import 'package:talaky_app/modules/booking_screen/booking_screen.dart';
-import 'package:talaky_app/modules/home_screen/home_screen.dart';
+import 'package:talaky_app/modules/home_screen/presentation/home_screen.dart';
 import 'package:talaky_app/modules/setting_screen/setting_screen.dart';
 import 'package:talaky_app/shared/network/end_points.dart';
 import 'package:talaky_app/shared/network/remote/dio_helper.dart';
+import 'package:talaky_app/shared/ui/resources/app_strings.dart';
 
 class HomeLayOutCubit extends Cubit<HomeLayOutStates> {
   HomeLayOutCubit() : super(InitialHomeState());
@@ -24,15 +25,16 @@ class HomeLayOutCubit extends Cubit<HomeLayOutStates> {
       icon: Icon(
         IconlyBroken.home,
       ),
-      label: 'الرئسية',
+      label: 'home',
     ),
     const BottomNavigationBarItem(
-        icon: Icon(IconlyBroken.bookmark), label: 'الحجزات'),
+        icon: Icon(IconlyBroken.bookmark), label: 'bookings'),
     const BottomNavigationBarItem(
         icon: Icon(
           IconlyBroken.setting,
         ),
-        label: 'الاعدادات'),
+        label: 'settings',
+    ),
   ];
 
   List<Widget> screens = [
@@ -41,10 +43,11 @@ class HomeLayOutCubit extends Cubit<HomeLayOutStates> {
     SettingScreen(),
   ];
 
-  List<String> titles = [
-    'الرئسية',
-    'الحجزات',
-    'الاعدادات',
+  List titles = [
+    AppText(text:'home'),
+    AppText(text:'bookings'),
+    AppText(text:'settings'),
+
   ];
 
   void changeBottom(int index) {
@@ -52,6 +55,8 @@ class HomeLayOutCubit extends Cubit<HomeLayOutStates> {
 
     emit(ChangeBottomNavBarHomeState());
   }
+
+
   CategoriesModel? categoriesModel ;
   void getCategories() {
     emit(CategoriesLoadingState());
@@ -59,11 +64,13 @@ class HomeLayOutCubit extends Cubit<HomeLayOutStates> {
       url: categories,
     ).then((value) {
       categoriesModel = CategoriesModel.fromJson(value.data);
-      emit(CategoriesSuccessState());
+      print('###categoriesModel  ${categoriesModel!.data[0].name}');
+      emit(CategoriesSuccessState(categoriesModel!));
     }).catchError((error) {
       emit(CategoriesErrorState());
     });
   }
+
   CenterModel? centerModel ;
   void postCenters() {
     emit(CentersLoadingState());
@@ -76,29 +83,27 @@ class HomeLayOutCubit extends Cubit<HomeLayOutStates> {
       }
     ).then((value) {
       centerModel = CenterModel.fromJson(value.data);
-      emit(CentersSuccessState());
+      print('###centerModel  ${centerModel!.data!.data![0].name}');
+      emit(CentersSuccessState(centerModel!));
     }).catchError((error) {
       emit(CentersErrorState());
     });
   }
-
-
   PackageModel? packageModel ;
   void postPackage() {
     emit(PackagesLoadingState());
 
     DioHelper.postData(url: package, query: {
       'activity_id': '1',
+      'city_id': 1,
     }).then((value) {
       packageModel = PackageModel.fromJson(value.data);
-      emit(PackagesSuccessState());
+      print('###packageModel  ${packageModel!.data!.data![0].name}');
+      emit(PackagesSuccessState(packageModel!));
     }).catchError((error) {
       emit(PackagesErrorState());
     });
   }
-
-
-
   OfferModel ? offerModel ;
   void postOffer() {
     emit(OffersLoadingState());
@@ -106,11 +111,12 @@ class HomeLayOutCubit extends Cubit<HomeLayOutStates> {
         url: offer,
         query: {
       'activity_id': '1',
+          'city_id': 1,
     }).then((value) {
       offerModel = OfferModel.fromJson(value.data);
-      emit(OffersSuccessState());
+      print('###offerModel  ${offerModel!.data!.data![0].name}');
+      emit(OffersSuccessState(offerModel!));
     }).catchError((error) {
-
       emit(OffersErrorState());
 
     });

@@ -226,3 +226,5 @@ class CenterDetailsCategory {
     userId = json['user_id'];
   }
 }
+
+

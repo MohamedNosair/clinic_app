@@ -13,8 +13,7 @@ class BookedCubit extends Cubit<BookedStates> {
 
   final BookedRepository repository ;
 
-  void loadBookeds()
-  {
+  void loadBookeds(){
     if(state is BookedLoadingState) return ;
     final currentState = state ;
     var oldPost = <BookedData>[] ;
@@ -31,7 +30,6 @@ class BookedCubit extends Cubit<BookedStates> {
       page++ ;
       final center = (state as BookedLoadingState).oldBooked ;
       center.addAll(newBooked);
-
       emit(BookedLoadedState(center));
     });
   }

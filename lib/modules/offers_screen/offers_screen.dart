@@ -46,7 +46,7 @@ class OffersScreen extends StatelessWidget {
           icon: const Icon(IconlyBroken.search),
         )],
       ),
-      body :buildNotConnectedScreen(screen:  offerBuild()) ,
+      body : buildNotConnectedScreen(screen:  offerBuild()) ,
     );
   }
 
@@ -100,7 +100,7 @@ class OffersScreen extends StatelessWidget {
       child: Center(child: CircularProgressIndicator()),
     );
   }
-  Widget dealsItem(  OfferData data , BuildContext context ) => InkWell(
+  Widget dealsItem(OfferData data ,BuildContext context) => InkWell(
     onTap: ()
     {
       navigateTo(context,   NameOfferScreen(id: data.id!,));

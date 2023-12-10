@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:talaky_app/core/language/app_localization/app_localization.dart';
 import 'package:talaky_app/layout/cubit/cubit.dart';
 import 'package:talaky_app/layout/cubit/states.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
-import 'package:talaky_app/shared/style/color.dart';
+
+import '../shared/ui/resources/app_colors.dart';
 
 class HomeLayout extends StatelessWidget {
 
@@ -16,9 +19,8 @@ class HomeLayout extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(
-              cubit.titles[cubit.currentIndex],
-            ),
+            centerTitle: false,
+            title: cubit.titles[cubit.currentIndex],
           ),
           bottomNavigationBar: BottomNavigationBar(
             elevation: 5,
@@ -29,7 +31,23 @@ class HomeLayout extends StatelessWidget {
               cubit.changeBottom(index);
             },
             currentIndex: cubit.currentIndex,
-            items: cubit.bottomItems,
+            items:   <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: const Icon(
+                  IconlyBroken.home,
+                ),
+                label: 'home'.tr(context),
+              ),
+              BottomNavigationBarItem(
+                  icon: const Icon(IconlyBroken.bookmark),
+                  label: 'bookings'.tr(context),),
+              BottomNavigationBarItem(
+                icon: const Icon(
+                  IconlyBroken.setting,
+                ),
+                label: 'settings'.tr(context),
+              ),
+            ],
           ),
           body:buildNotConnectedScreen(screen: cubit.screens[cubit.currentIndex],)
 

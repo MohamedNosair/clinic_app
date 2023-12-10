@@ -22,4 +22,6 @@ const centerDetails = '/center/';
 
 const offerDetails = "/offer/";
 
-const appointment = "/appointment/23";
+const appointment = "/appointment/3";
+
+const booking = "/booking/";

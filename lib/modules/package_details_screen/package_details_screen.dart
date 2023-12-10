@@ -4,7 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:talaky_app/modules/package_details_screen/cubit/cubit.dart';
 import 'package:talaky_app/modules/package_details_screen/cubit/states.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
-import 'package:talaky_app/shared/style/color.dart';
+import 'package:talaky_app/shared/ui/resources/app_colors.dart';
 
 import '../../data/models/package_details_model.dart';
 
@@ -162,7 +162,7 @@ class _PackageDetailsScreenState extends State<PackageDetailsScreen> {
                       child: Container(
                         height: 40,
                         decoration: BoxDecoration(
-                          color: defaultColor,
+                          color: AppColor.mainColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         // child: MaterialButton(

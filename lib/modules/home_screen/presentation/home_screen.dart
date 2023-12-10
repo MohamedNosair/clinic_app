@@ -16,9 +16,7 @@ import 'package:talaky_app/modules/name_offer_screen/name_offer_screen.dart';
 import 'package:talaky_app/modules/offers_screen/offers_screen.dart';
 import 'package:talaky_app/modules/packages_screen/packages_screen.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
-import 'package:talaky_app/shared/style/color.dart';
-
-// ignore: must_be_immutable
+import '../../../shared/ui/resources/app_colors.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   var searchController = TextEditingController();
@@ -31,11 +29,7 @@ class HomeScreen extends StatelessWidget {
         var cubit = HomeLayOutCubit.get(context);
         return cubit.offerModel?.data!.data == null &&
                 cubit.categoriesModel?.data == null
-            ? Center(
-                child: CircularProgressIndicator(
-                color: AppColor.mainColor,
-                  backgroundColor: Colors.black,
-              ))
+            ? LoadingWidget()
             : SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -55,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                     //   ),
                     // ),
                     cubit.offerModel?.data!.data == null
-                        ? const Center(child: CircularProgressIndicator())
+                        ?  Container()
                         : CarouselSlider(
                             options: CarouselOptions(
                               height: 200.0,
@@ -70,8 +64,7 @@ class HomeScreen extends StatelessWidget {
                               autoPlayCurve: Curves.fastOutSlowIn,
                               scrollDirection: Axis.horizontal,
                             ),
-                            items:
-                                [cubit.offerModel!.data!.data!.length].map((i) {
+                            items: cubit.offerModel!.data!.data!.map((item) {
                               return Builder(
                                 builder: (BuildContext context) {
                                   return Container(
@@ -79,7 +72,7 @@ class HomeScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                            '${cubit.offerModel?.data!.data![0].image}',
+                                            '${item.image}',
                                           ),
                                           fit: BoxFit.cover),
                                     ),
@@ -98,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                                               image: DecorationImage(
                                                 fit: BoxFit.cover,
                                                 image: NetworkImage(
-                                                  '${cubit.offerModel?.data!.data![0].image}',
+                                                  '${item.image}',
                                                 ),
                                               ),
                                             ),
@@ -110,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                                             height: 50,
                                             child: Center(
                                               child: Text(
-                                                '${cubit.offerModel!.data!.data![0].name}',
+                                                '${item.name}',
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
@@ -139,23 +132,23 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Text(
+                               Text(
                                 'Categories',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: defaultColor),
+                                    color: AppColor.mainColor),
                               ),
                               const Spacer(),
                               defaultTextButton(
                                 icon: IconlyBroken.arrowRight2,
                                 height: 30,
-                                background: defaultSecondColor,
+                                background: AppColor.defaultSecondColor,
                                 function: () {
                                   navigateTo(context, const CategoriesScreen());
                                 },
                                 text: 'المزيد',
-                                color: defaultColor,
+                                color: AppColor.mainColor,
                               ),
                             ],
                           ),
@@ -194,18 +187,18 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Text(
+                               Text(
                                 'Centers',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: defaultColor),
+                                    color: AppColor.mainColor),
                               ),
                               const Spacer(),
                               defaultTextButton(
                                 icon: IconlyBroken.arrowRight2,
                                 height: 30,
-                                background: defaultSecondColor,
+                                background: AppColor.defaultSecondColor,
                                 function: () {
                                   navigateTo(
                                     context,
@@ -213,7 +206,7 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                                 text: 'المزيد',
-                                color: defaultColor,
+                                color: AppColor.mainColor,
                               ),
                             ],
                           ),
@@ -251,23 +244,23 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Text(
+                               Text(
                                 'Offers',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: defaultColor),
+                                    color: AppColor.mainColor),
                               ),
                               const Spacer(),
                               defaultTextButton(
                                 icon: IconlyBroken.arrowRight2,
                                 height: 30,
-                                background: defaultSecondColor,
+                                background: AppColor.defaultSecondColor,
                                 function: () {
                                   navigateTo(context, OffersScreen());
                                 },
                                 text: 'المزيد',
-                                color: defaultColor,
+                                color: AppColor.mainColor,
                               ),
                             ],
                           ),
@@ -286,7 +279,7 @@ class HomeScreen extends StatelessWidget {
                                         const SizedBox(
                                       width: 5,
                                     ),
-                                    itemCount: 4,
+                                    itemCount:cubit.offerModel!.data!.data!.length,
                                   ),
                           ),
                         ],
@@ -302,18 +295,18 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Text(
+                               Text(
                                 'Package',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
-                                    color: defaultColor),
+                                    color: AppColor.mainColor),
                               ),
                               const Spacer(),
                               defaultTextButton(
                                 icon: IconlyBroken.arrowRight2,
                                 height: 30,
-                                background: defaultSecondColor,
+                                background: AppColor.defaultSecondColor,
                                 function: () {
                                   navigateTo(
                                     context,
@@ -321,7 +314,7 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                                 text: 'المزيد',
-                                color: defaultColor,
+                                color: AppColor.mainColor,
                               ),
                             ],
                           ),
@@ -363,15 +356,11 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
+              backgroundImage: NetworkImage(
+                data.image,
+              ),
               backgroundColor: Colors.grey[100],
               radius: 30,
-              child: Image(
-                image: NetworkImage(
-                  data.image,
-                ),
-                height: 50,
-                width: 50,
-              ),
             ),
             const SizedBox(
               height: 10,

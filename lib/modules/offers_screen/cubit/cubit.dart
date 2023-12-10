@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talaky_app/data/models/offer_model.dart';
 import 'package:talaky_app/data/repositories/offer_repository.dart';

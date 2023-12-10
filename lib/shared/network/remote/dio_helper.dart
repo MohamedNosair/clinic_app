@@ -7,7 +7,7 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-          baseUrl: 'https://beauty.softscope.net/api/app',
+          baseUrl: 'http://beautyandme.online/api/app',
           receiveDataWhenStatusError: true,
           headers: {
             'Content-Type': 'application/json',

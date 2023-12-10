@@ -2,13 +2,14 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:talaky_app/core/language/app_localization/app_localization.dart';
 import 'package:talaky_app/modules/country_screen/country_screen.dart';
 import 'package:talaky_app/modules/register_screen/cubit/cubit.dart';
 import 'package:talaky_app/modules/register_screen/cubit/states.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
-import 'package:talaky_app/shared/style/color.dart';
 import '../../shared/componants/constants.dart';
 import '../../shared/network/local/cachehelper/cache_helper.dart';
+import '../../shared/ui/resources/app_colors.dart';
 
 class RegisterScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -57,13 +58,13 @@ class RegisterScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        children: const [
+                        children:  [
                           Text(
-                            'Welcome',
-                            style: TextStyle(
+                            "welcome".tr(context),
+                            style: const TextStyle(
                                 fontSize: 40.0, fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             '.',
                             style: TextStyle(
                               color: Colors.deepPurple,
@@ -73,9 +74,9 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Text(
-                        'please Create an account to continue',
-                        style: TextStyle(
+                       Text(
+                        "please create an account to continue ".tr(context),
+                        style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.normal,
                         ),
@@ -86,13 +87,14 @@ class RegisterScreen extends StatelessWidget {
                       defaultTextFormField(
                         validate: (value) {
                           if (value!.isEmpty) {
-                            return 'Please Enter Your Name';
+                            return "please enter name".tr(context);
                           }
+                          return null ;
                         },
                         controller: nameController,
                         inputType: TextInputType.name,
                         prefix: Icons.account_circle,
-                        text: 'Full Name',
+                        text:  "full name".tr(context),
                         onSubmitted: (value) {
                           if (formKey.currentState!.validate()) {}
                         },
@@ -103,13 +105,14 @@ class RegisterScreen extends StatelessWidget {
                       defaultTextFormField(
                         validate: (value) {
                           if (value!.isEmpty) {
-                            return 'Please Enter Your phone';
+                            return "please enter phone".tr(context);
                           }
+                          return null;
                         },
                         controller: phoneController,
                         inputType: TextInputType.phone,
                         prefix: Icons.call,
-                        text: 'phone',
+                        text:  "phone number ".tr(context),
                         onSubmitted: (value) {
                           if (formKey.currentState!.validate()) {}
                         },
@@ -120,13 +123,14 @@ class RegisterScreen extends StatelessWidget {
                       defaultTextFormField(
                         validate: (value) {
                           if (value!.isEmpty) {
-                            return 'Please Enter Your Email Address';
+                            return "please enter email".tr(context);
                           }
+                          return null;
                         },
                         controller: emailController,
                         inputType: TextInputType.emailAddress,
                         prefix: Icons.email,
-                        text: 'Email Address',
+                        text: "email".tr(context) ,
                         onSubmitted: (value) {
                           if (formKey.currentState!.validate()) {}
                         },
@@ -147,13 +151,14 @@ class RegisterScreen extends StatelessWidget {
                           },
                           validate: (value) {
                             if (value!.isEmpty) {
-                              return 'Please Enter Your Password';
+                              return "please enter password".tr(context);
                             }
+                            return null;
                           },
                           controller: passwordController,
                           inputType: TextInputType.visiblePassword,
                           prefix: Icons.lock,
-                          text: 'Password',
+                          text: 'password'.tr(context),
                           suffix: RegisterCubit
                               .get(context)
                               .suffix,
@@ -181,7 +186,7 @@ class RegisterScreen extends StatelessWidget {
                                   navigateTo(context, const CountryScreen());
                                 }
                               },
-                              text: 'Register',
+                              text: "register".tr(context),
                               width: double.infinity,
                               radius: 40, color: AppColor.mainColor,
                             ),

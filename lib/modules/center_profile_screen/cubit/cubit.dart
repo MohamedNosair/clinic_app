@@ -21,14 +21,16 @@ class CenterProfileCubit extends Cubit<CenterProfileStates> {
   // }
 
   CenterDetailsModel? centerDetailsModel;
-  void getCenterProfile({required int id}) {
+  void getCenterProfile({int? id}) {
     emit(CenterProfileLoadingState());
     DioHelper.getData(
-      url: centerDetails + "$id",
+      url: centerDetails +'$id',
     ).then((value) {
       centerDetailsModel = CenterDetailsModel.fromJson(value.data);
+      print("center id ${centerDetailsModel!.data.toString()}");
       emit(CenterProfileSuccessState());
     }).catchError((error) {
+      print("error ${error.toString()}");
       emit(CenterProfileErrorState(error.toString()));
     });
   }

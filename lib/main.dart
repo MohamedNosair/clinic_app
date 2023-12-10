@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:talaky_app/data/repositories/center_repository.dart';
 import 'package:talaky_app/data/repositories/offer_repository.dart';
 import 'package:talaky_app/data/repositories/package_repository.dart';
@@ -21,18 +22,24 @@ import 'package:talaky_app/modules/on_boarding_screen/on_boarding_screen.dart';
 import 'package:talaky_app/modules/package_details_screen/cubit/cubit.dart';
 import 'package:talaky_app/modules/packages_screen/cubit/cubit.dart';
 import 'package:talaky_app/modules/register_screen/cubit/cubit.dart';
+import 'package:talaky_app/shared/bloc_observer.dart';
 import 'package:talaky_app/shared/componants/constants.dart';
 import 'package:talaky_app/shared/network/local/cachehelper/cache_helper.dart';
 import 'package:talaky_app/shared/network/remote/dio_helper.dart';
 import 'package:talaky_app/shared/style/themes.dart';
+import 'core/language/app_localization/app_localization.dart';
+import 'core/language/cubit/locale_cubit.dart';
 import 'data/repositories/all_booked_repository.dart';
 import 'data/services/all_booked_services.dart';
 import 'modules/booking_screen/cubit/cubit.dart';
 import 'modules/categories_screen/cubit/cubit.dart';
 import 'modules/login_screen/cubit/cubit.dart';
 
+
+final GlobalKey<NavigatorState> navigatorState = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
   Widget widget;
@@ -98,15 +105,16 @@ class MyApp extends StatelessWidget {
         /// Home
         BlocProvider(
           create: (BuildContext context) => HomeLayOutCubit()
-            ..getCategories()
-            ..postCenters()
             ..postOffer()
-            ..postPackage(),
+            ..getCategories()
+            ..postPackage()
+            ..postCenters(),
         ),
 
         /// CenterProfile
         BlocProvider(
-          create: (BuildContext context) => CenterProfileCubit(),
+          create: (BuildContext context) =>
+              CenterProfileCubit()..getCenterProfile(),
         ),
 
         /// Activities
@@ -164,11 +172,40 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => PackageDetailsCubit(),
         ),
+        BlocProvider(
+          create: (context) => LocaleCubit()..getSavedLanguage(),
+        ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: lightTheme,
-        home: startWidget,
+      child: BlocBuilder<LocaleCubit, ChangeLocaleState>(
+        builder: (context, state) {
+          return MaterialApp(
+            key: navigatorState,
+            locale: state.locale,
+            supportedLocales: const [
+              Locale('en'),
+              Locale('ar'),
+            ],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            localeResolutionCallback: (deviceLocale, supportedLocales) {
+              for (var locale in supportedLocales) {
+                if (deviceLocale != null &&
+                    deviceLocale.languageCode == locale.languageCode) {
+                  return deviceLocale;
+                }
+              }
+
+              return supportedLocales.first;
+            },
+            debugShowCheckedModeBanner: false,
+            theme: lightTheme,
+            home: startWidget,
+          );
+        },
       ),
     );
   }

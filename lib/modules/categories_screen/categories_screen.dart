@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:talaky_app/data/models/categories.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
-import '../../shared/style/color.dart';
+import '../../shared/ui/resources/app_colors.dart';
 import '../center_profile_screen/center_profile_screen.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
@@ -24,7 +24,7 @@ class CategoriesScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(
+                icon:  Icon(
                   IconlyBroken.arrowLeft2,
                   color: AppColor.whiteColor,
                 ),
@@ -43,21 +43,19 @@ class CategoriesScreen extends StatelessWidget {
 
   Widget categoriesItem(Data data, context) => InkWell(
         onTap: () {
-          navigateTo(context,  CenterProfileScreen(id:data.id));
+          navigateTo(context,  CenterProfileScreen(
+              id:data.id,
+          ),);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
               backgroundColor: Colors.grey[100],
-              radius: 50,
-              child: Image(
-                image: NetworkImage(
-                  data.image,
-                ),
-                height: 70,
-                width: 70,
+              backgroundImage: NetworkImage(
+                data.image,
               ),
+              radius: 50,
             ),
             const SizedBox(
               height: 15,

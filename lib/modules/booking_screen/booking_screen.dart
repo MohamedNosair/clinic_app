@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talaky_app/modules/booking_screen/cubit/cubit.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
 import '../../data/models/all_booked.dart';
+import '../../shared/ui/screens/not_order_screen.dart';
 import 'cubit/states.dart';
 
 class BookingScreen extends StatelessWidget {
@@ -35,6 +36,7 @@ class BookingScreen extends StatelessWidget {
           isLoading = true;
         } else if (state is BookedLoadedState) {
           booked = state.booked;
+          NotOrderScreen();
         }
         return Column(
           children: [
@@ -72,6 +74,7 @@ Widget loadingIndicator() {
     child: Center(child: CircularProgressIndicator()),
   );
 }
+
 Widget buildItemBooking(BuildContext context, BookedData booked) => Padding(
       padding: const EdgeInsets.all(5.0),
       child: Card(

@@ -107,8 +107,10 @@ class CenterScreen extends StatelessWidget {
   }
   Widget centersItem(context, CenterData data) => InkWell(
         onTap: () {
-          navigateTo(context,   CenterProfileScreen(id: data.id??0,));
-          // CenterProfileCubit.get(context).getCenterProfile(id:data.id??0);
+          navigateTo(context,   CenterProfileScreen(
+            id: data.id ?? 0,
+          ));
+          // CenterProfileCubit.get(context).getCenterProfile(id:data.id ??);
         },
         child: Column(
           children: [

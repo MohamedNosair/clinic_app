@@ -1,0 +1,35 @@
+import 'package:flutter/material.dart';
+abstract class AppColor {
+  static  Color mainColor =  const Color(0xffFFA6C9);
+  static  Color defaultSecondColor =  Colors.pink.shade50;
+  static  Color secondColor =  const Color(0xffDCAE96);
+  static  Color blackColor =  Colors.black;
+  static  Color greyColor =  Colors.grey;
+  static Color whiteColor = const Color(0xFFFFFFFF);
+  static Color primaryColor50 = const Color(0xFFFFEDD7);
+  static Color primaryColor500 = const Color(0xFFCD0B19);
+  static Color primaryColor700 = const Color(0xFFA96F25);
+  static Color transparentColor = Colors.transparent;
+  static Color blackColor1 = const Color(0xFF08080D);
+  static Color secondaryColor = const Color(0xFF950303);
+  static Color grey50 = const Color(0xFFF9FAFB);
+  static Color grey200 = const Color(0xFFEAECF0);
+  static Color grey300 = const Color(0xFFD0D5DD);
+  static Color grey400 = const Color(0xFF98A2B3);
+  static Color grey500 = const Color(0xFF667085);
+  static Color grey700 = const Color(0xFF344054);
+  static Color grey800 = const Color(0xFF1D2939);
+  static Color grey900 = const Color(0xFF101828);
+  static Color warningColor100 = const Color(0xFFFEF0C7);
+  static Color warningColor50 = const Color(0xFFFFFAEB);
+  static Color warningColor700 = const Color(0xFFB54708);
+  static Color blueColor700 = const Color(0xFF175CD3);
+  static Color blueColor300 = const Color(0xFF84CAFF);
+  static Color blueColor50 = const Color(0xFFEFF8FF);
+  static Color blueColor25 = const Color(0xFFF5FAFF);
+  static Color orangeColor100 = const Color(0xFFFDEAD7);
+  static Color errorColor50 = const Color(0xFFFEF3F2);
+  static Color errorColor700 = const Color(0xFFB42318);
+  static Color successColor50 = const Color(0xFFECFDF3);
+  static Color successColor700 = const Color(0xFF027A48);
+}

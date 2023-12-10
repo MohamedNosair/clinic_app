@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talaky_app/shared/style/color.dart';
+
+import '../ui/resources/app_colors.dart';
 
 Widget defaultTextFormField({
   required TextEditingController controller,
@@ -31,7 +32,7 @@ Widget defaultTextFormField({
         fillColor: Colors.grey[100],
         // filled: true,
         focusedBorder: OutlineInputBorder(
-          borderSide:  const BorderSide(width: 2, color: Colors.grey),
+          borderSide: const BorderSide(width: 2, color: Colors.grey),
           borderRadius: BorderRadius.circular(30),
         ),
         border: OutlineInputBorder(
@@ -53,20 +54,15 @@ Widget defaultTextFormField({
           icon: Icon(
             suffix,
             color: AppColor.greyColor,
-
           ),
         ),
       ),
     );
 
-
-
-
-
 Widget defaultButton({
   // double height = 50.0,
   double width = double.infinity,
-  required Color color ,
+  required Color color,
   double? radius,
   required Function() onPressed,
   required String? text,
@@ -116,7 +112,7 @@ Widget defaultTextButton({
               ),
               Icon(
                 icon,
-                color: defaultColor,
+                color: AppColor.mainColor,
                 size: 18,
               ),
             ],
@@ -128,8 +124,13 @@ Widget defaultTextButton({
 Widget myDivider() => Container(
       width: double.infinity,
       height: 2,
-      color: defaultSecondColor,
+      color:AppColor.defaultSecondColor ,
     );
+
+Widget LoadingWidget() => Center(
+        child: CircularProgressIndicator(
+      color: AppColor.mainColor,
+    ));
 
 void navigateTo(context, widget) => Navigator.push(
     context,
@@ -176,6 +177,7 @@ Color chooseToastColor(ToastState state) {
   }
   return color;
 }
+
 Widget buildNotConnected() {
   return Center(
     child: Container(
@@ -192,34 +194,30 @@ Widget buildNotConnected() {
 }
 
 Widget buildNotConnectedScreen({
-   required screen,
-}
-    ){
+  required screen,
+}) {
   return OfflineBuilder(
     connectivityBuilder: (
-        BuildContext context,
-        ConnectivityResult connectivity,
-        Widget child,
-        ) {
+      BuildContext context,
+      ConnectivityResult connectivity,
+      Widget child,
+    ) {
       final bool connected = connectivity != ConnectivityResult.none;
       if (connected) {
         return screen;
-      }else{
-        return buildNotConnected() ;
+      } else {
+        return buildNotConnected();
       }
     },
-    child:  const Text("no internet"),
-
+    child: const Text("no internet"),
   );
-
 }
 
-Widget progressIndicator(){
+Widget progressIndicator() {
   return CircularProgressIndicator(
-    color:  AppColor.mainColor,
+    color: AppColor.mainColor,
     backgroundColor: Colors.pinkAccent,
     semanticsLabel: "loading",
     semanticsValue: "mohamed",
-
-  ) ;
+  );
 }

@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talaky_app/core/language/app_localization/app_localization.dart';
 import 'package:talaky_app/layout/home_layout.dart';
 import 'package:talaky_app/modules/login_screen/cubit/cubit.dart';
 import 'package:talaky_app/modules/login_screen/cubit/states.dart';
@@ -8,10 +9,10 @@ import 'package:talaky_app/modules/register_screen/register_screen.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
 import 'package:talaky_app/shared/componants/constants.dart';
 import 'package:talaky_app/shared/network/local/cachehelper/cache_helper.dart';
-import 'package:talaky_app/shared/style/color.dart';
+
+import '../../shared/ui/resources/app_colors.dart';
 
 class LoginScreen extends StatelessWidget {
-
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -22,17 +23,15 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
-        if (state is LoginSuccessState ) {
-            CacheHelper.saveData(
-              key: 'token',
-              value: state.loginModel.token ,
-            ).then((value){
-              token = state.loginModel.token! ;
-              navigateAndFinish(context, HomeLayout());
-
-            });
-        }else{
-        }
+        if (state is LoginSuccessState) {
+          CacheHelper.saveData(
+            key: 'token',
+            value: state.loginModel.token,
+          ).then((value) {
+            token = state.loginModel.token!;
+            navigateAndFinish(context, HomeLayout());
+          });
+        } else {}
       },
       builder: (context, state) => Scaffold(
         // appBar: AppBar(
@@ -48,10 +47,10 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children:  [
-                        const Text(
-                          'مرحبا بك',
-                          style: TextStyle(
+                      children: [
+                        Text(
+                          "welcome".tr(context),
+                          style: const TextStyle(
                             fontSize: 40.0,
                             fontWeight: FontWeight.bold,
                           ),
@@ -72,14 +71,14 @@ class LoginScreen extends StatelessWidget {
                     defaultTextFormField(
                       validate: (value) {
                         if (value!.isEmpty) {
-                          return 'برجاء ادخال البريد الالكتروني الصحيح';
+                          return "please enter email".tr(context);
                         }
                         return null;
                       },
                       controller: emailController,
                       inputType: TextInputType.emailAddress,
                       prefix: Icons.email,
-                      text: 'البريد الالكتروني',
+                      text: "email".tr(context),
                     ),
                     const SizedBox(
                       height: 20.0,
@@ -95,14 +94,14 @@ class LoginScreen extends StatelessWidget {
                         },
                         validate: (value) {
                           if (value!.isEmpty) {
-                            return 'برجاء ادخال كلمة المرور الصحيحة';
+                            return "please enter password".tr(context);
                           }
                           return null;
                         },
                         controller: passwordController,
                         inputType: TextInputType.visiblePassword,
                         prefix: Icons.lock,
-                        text: 'كلمة المرور',
+                        text: "password".tr(context),
                         suffix: LoginCubit.get(context).suffix,
                         isPassword: LoginCubit.get(context).isPassword,
                         suffixOnPressed: () {
@@ -120,15 +119,15 @@ class LoginScreen extends StatelessWidget {
                               email: emailController.text,
                               password: passwordController.text,
                             );
+                            // navigateAndFinish(context, HomeLayout());
                           }
                         },
-                        text: 'تسجيل الدخول',
+                        text: "login".tr(context),
                         width: double.infinity,
                         radius: 40,
                         color: AppColor.mainColor,
                       ),
-                      fallback: (context) =>
-                          const Center(child: CircularProgressIndicator()),
+                      fallback: (context) => const Center(child: CircularProgressIndicator()),
                     ),
                     const SizedBox(
                       height: 10,
@@ -136,9 +135,9 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          "هل تمتلك حساب لدينا؟",
-                          style: TextStyle(
+                         Text(
+                          "create new account ?".tr(context),
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
@@ -150,7 +149,7 @@ class LoginScreen extends StatelessWidget {
                               RegisterScreen(),
                             );
                           },
-                          text: 'انشاء حساب',
+                          text: "register".tr(context),
                           fontWeight: FontWeight.normal,
                           fontSize: 16,
                         ),

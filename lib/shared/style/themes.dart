@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'color.dart';
+import '../ui/resources/app_colors.dart';
 
 ThemeData lightTheme = ThemeData(
   iconTheme: const IconThemeData(

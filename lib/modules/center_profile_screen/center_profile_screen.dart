@@ -7,12 +7,15 @@ import 'package:talaky_app/modules/appointment_screen/appointment_screen.dart';
 import 'package:talaky_app/modules/center_profile_screen/cubit/cubit.dart';
 import 'package:talaky_app/modules/center_profile_screen/cubit/states.dart';
 import 'package:talaky_app/shared/componants/componantes.dart';
-import 'package:talaky_app/shared/style/color.dart';
+
+import '../../shared/ui/resources/app_colors.dart';
 
 class CenterProfileScreen extends StatefulWidget {
   final int id;
 
-  const CenterProfileScreen({Key? key, required this.id}) : super(key: key);
+  const CenterProfileScreen({Key? key,
+    required this.id
+  }) : super(key: key);
 
   @override
   State<CenterProfileScreen> createState() => _CenterProfileScreenState();
@@ -21,7 +24,9 @@ class CenterProfileScreen extends StatefulWidget {
 class _CenterProfileScreenState extends State<CenterProfileScreen> {
   @override
   void initState() {
-    CenterProfileCubit.get(context).getCenterProfile(id: widget.id);
+    CenterProfileCubit.get(context).getCenterProfile(
+        id: widget.id,
+    );
     super.initState();
   }
 
@@ -33,7 +38,7 @@ class _CenterProfileScreenState extends State<CenterProfileScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(
+          icon:  Icon(
             IconlyBroken.arrowLeft2,
             color: AppColor.whiteColor,
           ),
@@ -60,7 +65,7 @@ class _CenterProfileScreenState extends State<CenterProfileScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    color: defaultColor,
+                    color: AppColor.mainColor,
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Row(
@@ -162,12 +167,12 @@ class _CenterProfileScreenState extends State<CenterProfileScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                       Text(
                         'Bio',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: defaultColor),
+                            color: AppColor.mainColor),
                       ),
                       const SizedBox(
                         height: 5,
@@ -193,12 +198,12 @@ class _CenterProfileScreenState extends State<CenterProfileScreen> {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                             Text(
                               'Categories',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                color: defaultColor,
+                                color: AppColor.mainColor,
                               ),
                             ),
                             const SizedBox(
@@ -230,13 +235,13 @@ class _CenterProfileScreenState extends State<CenterProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: const [
+                              children:  [
                                 Text(
                                   'Offers',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
-                                      color: defaultColor),
+                                      color: AppColor.mainColor),
                                 ),
                               ],
                             ),
@@ -274,13 +279,13 @@ class _CenterProfileScreenState extends State<CenterProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: const [
+                              children:  [
                                 Text(
                                   'Package',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
-                                      color: defaultColor),
+                                      color: AppColor.mainColor),
                                 ),
                               ],
                             ),
@@ -317,8 +322,10 @@ class _CenterProfileScreenState extends State<CenterProfileScreen> {
                       navigateTo(
                           context,
                           AppointmentScreen(
-                            id: cubit.centerDetailsModel!.data.id,
-                          ));
+                            // id: cubit.centerDetailsModel!.data.id,
+                          ),
+                        // AppointmentPage(),
+                      );
                     },
                     text: 'Make Appointment',
                     width: double.infinity,
